@@ -1,0 +1,127 @@
+
+<html>
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <title>RGB-подсветка</title>
+ </head>
+ <body>
+<!--
+ 	<h1>J</h1>
+	<h1>a</h1>
+	<h1>v</h1>
+	<h1>a</h1>
+	<h1>S</h1>
+	<h1>c</h1>
+	<h1>r</h1>
+	<h1>i</h1>
+	<h1>p</h1>
+	<h1>t</h1>
+	<br>
+-->
+	<h1>JavaScript</h1>
+  
+ </body>
+	
+<script>
+	h = document.getElementsByTagName('h1')[0];
+
+	
+	function color(elem, r, g, b, op) {
+		elem.style.color = 'rgb(' + r + ', ' + g + ', ' + b + ', ' + op + ')';
+	}
+	
+	function shadow(elem, r, g, b, op, x, y, radius) {
+		elem.style.textShadow = ' ' + x + ' ' + y + ' ' + radius +'px' + ' ' + 'rgb(' + r + ', ' + g + ', ' + b + ', ' + op + ')';
+	}
+	
+	function RGBBacklight(elem, r, g, b, x, y, radius, max, min, speed) {
+		let k = speed * 100;
+		let l = Math.random()
+		let bol;
+		let op;
+		if ((l >= 0) && (l < 0.5)) {
+			op = max;
+			bol = true;
+		}
+		
+		else {
+			op = min;
+			bol = false;
+		}
+		event1 = setInterval(function() {
+			if (bol == true){
+				op = op - speed;
+				r = r - k
+				g = g - k
+				b = b - k
+				radius = radius - speed * 10;
+			}
+			
+			if (op < min) {
+				bol = false;
+			}
+			
+			if (bol == false) {
+				op = op + speed;
+				r = r + k
+				g = g + k
+				b = b + k
+				radius = radius + speed * 10;
+			}
+			
+			if (op > max) {
+				bol = true;
+			}
+			//color(elem, r, g, b, op);
+			shadow(elem, r, g, b, op, x, y, radius);
+		}, 100);
+	}
+	
+	function random(x) {
+		c = Math.round(Math.random() * x);
+		return c;
+	}
+	
+	function split(elem) {
+		el = elem.innerHTML;
+		//alert(el[0].replace(el[0], '<h1>' + el[0] + '</h1>'));
+		div = document.createElement('div');
+		h.parentElement.appendChild(div);
+		for (let i = 0; i < el.length; i++) {
+			h1 = document.createElement('h1');
+			h1.innerHTML = '<h1 class= "clone">' + el[i] + '</h1>';
+
+			MyBacklight(h1, 0, 0, 30, 1, 0.7, 0.005);
+			div.appendChild(h1);
+		}
+		
+		h.parentNode.removeChild(h);
+	}
+	
+	function MyBacklight(elem, x, y, radius, max, min, speed) {
+		
+		c = Math.random();
+		
+		if ((c >= 0) && (c < 0.5)){
+			RGBBacklight(elem, 0, 0, 255, x, y, radius, max, min, speed);
+		}
+		
+		if ((c >= 0.5) && (c < 1)){
+			RGBBacklight(elem, 255, 0, 255, x, y, radius, max, min, speed);
+		}
+		
+		
+		
+	}
+	
+	split(h);
+	
+	
+	
+
+	
+	
+	
+</script>
+</html>
